@@ -193,7 +193,7 @@ const RegisterScreen = () => {
                 </div>
 
                 <div className="space-y-4">
-                    <button 
+                    <button
                         onClick={handleGoogleSignIn}
                         className="w-full flex items-center justify-center py-2 border border-black cursor-pointer hover:bg-gray-100 bg-white text-black font-semibold rounded-md"
                     >
@@ -203,7 +203,7 @@ const RegisterScreen = () => {
                 </div>
 
                 <p className="text-center text-gray-500 text-sm mt-6">
-                    By continuing, you agree to Social.ai's <a href="#" className="text-blue-500 underline">Terms of Service</a> and <a href="#" className="text-blue-500 underline">Privacy Policy</a>.
+                    By continuing, you agree to Customer Support AI's <a href="#" className="text-blue-500 underline">Terms of Service</a> and <a href="#" className="text-blue-500 underline">Privacy Policy</a>.
                 </p>
 
                 <p className="text-center text-sm text-gray-500 mt-4">

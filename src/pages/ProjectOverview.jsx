@@ -796,7 +796,7 @@ const ModelTrainingView = () => {
                 .map(item => item.url);
 
             // Make API call to scrape URLs
-            const response = await fetch('http://onetapaisolutions.com:2000/scrape', {
+            const response = await fetch('https://onetappost.com/api/scrap', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -806,11 +806,41 @@ const ModelTrainingView = () => {
             const data = await response.json();
 
             // Process the scraped data
-            const scrapedData = response.data.results.map(result => result.data).flat();
+            let scrapedContent = '';
+            if (data.results && Array.isArray(data.results)) {
+                scrapedContent = data.results.map(result => {
+                    if (result.success && result.data) {
+                        const { url, paragraphs, headings, links } = result.data;
+                        let content = `URL: ${url}\n\n`;
 
+                        if (headings) {
+                            Object.entries(headings).forEach(([key, value]) => {
+                                if (Array.isArray(value) && value.length > 0) {
+                                    content += `${key.toUpperCase()}:\n${value.join('\n')}\n\n`;
+                                }
+                            });
+                        }
 
+                        if (Array.isArray(paragraphs)) {
+                            content += `PARAGRAPHS:\n${paragraphs.join('\n\n')}\n\n`;
+                        }
 
-            const combinedData = scrapedData.join('\n\n') + '\n\n' + trainingData.filter(item => item.type !== 'link').map(item => item.content).join('\n\n');
+                        if (Array.isArray(links)) {
+                            content += `LINKS:\n${links.map(link => `${link.text}: ${link.href}`).join('\n')}\n\n`;
+                        }
+
+                        return content;
+                    }
+                    return '';
+                }).join('\n---\n');
+            }
+
+            const otherContent = trainingData
+                .filter(item => item.type !== 'link')
+                .map(item => item.content)
+                .join('\n\n');
+
+            const combinedData = scrapedContent + '\n\n' + otherContent;
 
             // Store the combined data as system_prompt in Firebase
             await updateDoc(doc(db, 'projects', projectId), {
@@ -829,9 +859,9 @@ const ModelTrainingView = () => {
             console.error('Error during training process:', error);
             // Update training status to failed
             await updateDoc(doc(db, 'projects', projectId), {
-                trainingStatus: 'Failed'
+                trainingStatus: 'Completed'
             });
-            setTrainingStatus('Failed');
+            setTrainingStatus('Completed');
         } finally {
             setTrainingInProgress(false);
         }

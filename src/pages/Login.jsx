@@ -94,7 +94,7 @@ const Login = () => {
                     src="/main_logo.png"
                     width={190}
                     height={40}
-                    alt="DevOpsAI"
+                    alt="AI Support"
                     className="pointer-events-none select-none text-center mx-auto"
                 />
                 <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">Sign in</h1>
@@ -156,7 +156,7 @@ const Login = () => {
                 </div>
 
                 <div className="space-y-4">
-                    <button 
+                    <button
                         onClick={handleGoogleSignIn}
                         className="w-full flex items-center justify-center py-2 border border-black cursor-pointer hover:bg-gray-100 bg-white text-black font-semibold rounded-md"
                     >
@@ -166,7 +166,7 @@ const Login = () => {
                 </div>
 
                 <p className="text-center text-gray-500 text-sm mt-6">
-                    By continuing, you agree to DevOps AI <a href="#" className="text-blue-500 underline">Terms of Service</a> and <a href="#" className="text-blue-500 underline">Privacy Policy</a>.
+                    By continuing, you agree to Customer Support AI <a href="#" className="text-blue-500 underline">Terms of Service</a> and <a href="#" className="text-blue-500 underline">Privacy Policy</a>.
                 </p>
 
                 <p className="text-center text-sm text-gray-500 mt-4">
